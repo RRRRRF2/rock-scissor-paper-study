@@ -28,7 +28,7 @@ const getPlayerChoice = () => {
   
   return isValidChoice 
     ? selection 
-    : (alert(`Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you!`), DEFAULT_USER_CHOICE);
+    : (alert(`Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you!`));
 };
 
 
@@ -55,7 +55,7 @@ const randomValue = Math.random();
 
 
 
-const getWinner = (pChoice , cChoice) =>
+const getWinner = (pChoice = DEFAULT_USER_CHOICE , cChoice) =>
   pChoice ===cChoice 
     ? RESULT_DRAW
     : pChoice === ROCK && cChoice === SCISSORS ||
@@ -88,9 +88,23 @@ startGameBtn.addEventListener('click', ()=> {
   console.log('Game is starting...');
   const playerChoice = getPlayerChoice();
   const computerChoice = getComputerChoice();
-  const winner = getWinner(playerChoice, computerChoice);
-  console.log(`
-  PLAYER : ${playerChoice}, 
-  COMPUTER : ${computerChoice},
-  RESULT: ${winner}`);
+let winner;
+if(playerChoice){
+  winner = getWinner(playerChoice, computerChoice);
+}else{
+  winner = getWinner(computerChoice);
+}
+  
+  let message = `player picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice}`;
+  if(winner === RESULT_DRAW){
+    message = message + ' DRAW.';
+  }
+  else if(winner === RESULT_PLAYER_WIN){
+    message = message + ' WIN.';
+  }
+  else{
+    message = message + ' LOST.';
+  }
+  alert(message);
+  gameisRunning = false;
 });
