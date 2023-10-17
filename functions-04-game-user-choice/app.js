@@ -108,3 +108,37 @@ if(playerChoice){
   alert(message);
   gameisRunning = false;
 });
+
+//not related to game
+
+// Rest 연산자
+// 콜백함수
+const combine =  (resultHandler,operation,...numbers) =>{
+  let sum =0;
+  for (const num of numbers){
+    if(operation='ADD'){
+      sum += num;
+    }
+    else{
+      sum -= num;
+    }
+    }
+  resultHandler(sum);
+};
+
+// const subtractUp = (resultHandler, ...numbers)=>{
+//   let sum =0;
+//   for(const num of numbers){
+//     sum -=num;
+//   }
+//   resultHandler(sum);
+// }
+
+const showResult = (messageText, result) =>{
+  alert(messageText+''+result);
+}
+combine(showResult.bind(this,'zzzz'),'ADD',1,2,3,4);
+combine(showResult.bind(this,'zzzzz'),'SUBRACT',6,5,3,7,8,3)
+
+
+
